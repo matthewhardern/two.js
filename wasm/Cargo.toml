@@ -1,0 +1,43 @@
+[package]
+name = "two-wasm"
+version = "0.1.0"
+authors = ["Your Name <your.email@example.com>"]
+edition = "2021"
+description = "A WebAssembly graphics library for high-performance calculations"
+repository = "https://github.com/yourusername/wasm-graphics"
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["console_error_panic_hook", "console_logging"]
+console_logging = ["web-sys/console"]
+
+[dependencies]
+wasm-bindgen = "0.2.87"
+js-sys = "0.3.64"
+console_error_panic_hook = { version = "0.1.7", optional = true }
+glam = "0.30.1"  # Fast, SIMD-accelerated linear algebra library
+
+[dependencies.web-sys]
+version = "0.3.64"
+features = [
+    "Document",
+    "Element",
+    "HtmlElement",
+    "Window",
+    "Performance",
+    "PerformanceTiming"
+]
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.37"
+
+[profile.release]
+# Tell `rustc` to optimize for small code size.
+opt-level = "s"
+# Enable link time optimization
+lto = true

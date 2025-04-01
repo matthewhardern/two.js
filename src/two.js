@@ -54,6 +54,7 @@ import { Renderer as SVGRenderer } from './renderers/svg.js';
 import { Renderer as WebGLRenderer } from './renderers/webgl.js';
 
 import { Constants } from './constants.js';
+import { init } from "./wasm";
 
 const Utils = _.extend(
   {
@@ -179,6 +180,9 @@ export default class Two {
 
   constructor(options) {
     // Determine what Renderer to use and setup a scene.
+
+    // init wasm
+    init();
 
     const params = _.defaults(options || {}, {
       fullscreen: false,

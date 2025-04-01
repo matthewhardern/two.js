@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "build": "node ./utils/build",
+    "build:rust": "RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals' wasm-pack build ./wasm --target web --out-dir ../src/wasm -- -Z build-std=panic_abort,std",
     "dev": "esbuild --servedir=. --serve=8080",
     "docs:generate": "node ./utils/document",
     "docs:dev": "vuepress dev wiki",

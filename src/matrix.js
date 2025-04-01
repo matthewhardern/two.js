@@ -1,5 +1,6 @@
 import { NumArray, toFixed, setMatrix } from './utils/math.js';
 import { Events } from './events.js';
+import {WasmMatrixEngine} from "./wasm";
 
 // Constants
 
@@ -37,6 +38,8 @@ export class Matrix extends Events {
    */
   manual = false;
 
+  #engine = undefined;
+
   constructor(a, b, c, d, e, f) {
     super();
 
@@ -44,6 +47,9 @@ export class Matrix extends Events {
     if (!Array.isArray(elements)) {
       elements = Array.prototype.slice.call(arguments);
     }
+
+    this.#engine = new WasmMatrixEngine();
+    this.#engine.fromArray(elements);
 
     // initialize the elements with default values.
     this.identity();
